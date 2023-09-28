@@ -1,0 +1,81 @@
+﻿@using Intuit.Challenge.Web.Models;
+@inject SweetAlertService swal;
+@inject NavigationManager navigationManager;
+@using Intuit.Challenge.Web.Utilities;
+@inject IHttpClientFactory _httpClientFactory
+@if (Clientes == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else if (Clientes.Count == 0)
+{
+    <p><em>No se encontraron clientes...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>CUIT</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Clientes)
+            {
+                <tr>
+                    <td>@cliente.Nombre</td>
+                    <td>@cliente.Apellido</td>
+                    <td>@cliente.Email</td>
+                    <td>@cliente.CUIT</td>
+                    <td>
+                        <a href="/clientes/editar/@cliente.Id" class="btn btn-success">Editar</a>
+                        <button class="btn btn-danger"
+                        @onclick=@(() => Borrar(cliente))>
+                            Borrar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter][EditorRequired]
+    public List<ClienteModel> Clientes { get; set; }
+    [Parameter]
+    [EditorRequired]
+    public EventCallback CargarClientes { get; set; }
+    private HttpClient _httpClient;
+    protected override void OnInitialized()
+    {
+        _httpClient = _httpClientFactory.CreateClient(AppConstants.WEB_API_CLIENT);
+    }
+    private async Task Borrar(ClienteModel cliente)
+    {
+
+        var response = await _httpClient.DeleteAsync($"cliente/{cliente.Id}");
+
+
+
+        if (response.IsSuccessStatusCode)
+        {
+            var mensaje = await response.Content.ReadAsStringAsync();
+            await swal.FireAsync("Finalizado", mensaje, SweetAlertIcon.Success);
+            await CargarClientes.InvokeAsync();
+
+        }
+        else
+        {
+            var responseError = await response.Content.ReadFromJsonAsync<ErrorResponseModel>();
+            await swal.FireAsync(responseError.Title, responseError.Error, SweetAlertIcon.Error);
+            
+        }
+
+       
+    }
+}

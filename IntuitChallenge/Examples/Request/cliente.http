@@ -1,0 +1,45 @@
+GET https://localhost:44390/api/cliente
+x-api-key: LeVSe8vkut8ZxRwyW7QwRC=2qPX3Fk5VB0fp0pP?5MVlfvzi35yOxceKyOI?NMne
+
+###
+
+GET https://localhost:44390/api/cliente/-1
+x-api-key: LeVSe8vkut8ZxRwyW7QwRC=2qPX3Fk5VB0fp0pP?5MVlfvzi35yOxceKyOI?NMne
+
+###
+
+GET https://localhost:44390/api/cliente/search?nombre=ía
+x-api-key: LeVSe8vkut8ZxRwyW7QwRC=2qPX3Fk5VB0fp0pP?5MVlfvzi35yOxceKyOI?NMne
+
+###
+POST  https://localhost:44390/api/cliente
+Content-Type: application/json
+x-api-key: LeVSe8vkut8ZxRwyW7QwRC=2qPX3Fk5VB0fp0pP?5MVlfvzi35yOxceKyOI?NMne
+
+
+{
+    "nombre":"Raul",
+    "apellido":"Mendieta ",
+    "fechaNacimiento":"2023-03-15",
+    "cuit":"20452385629",
+    "domicilio":null,
+    "telefonoCelular":"2226683943",
+    "email":"algo@gmail.com"
+}
+###
+PUT  https://localhost:44390/api/cliente/3
+Content-Type: application/json
+x-api-key: LeVSe8vkut8ZxRwyW7QwRC=2qPX3Fk5VB0fp0pP?5MVlfvzi35yOxceKyOI?NMne
+
+{
+    "nombre":"Tomas",
+    "apellido":"Lecanda",
+    "fechaNacimiento":"2019-12-31T16:49:14.25",
+    "cuit":"99999999999",
+    "domicilio":"Pasaje 7 casa 6554",
+    "telefonoCelular":"2226683943",
+    "email":"tomas.diaz@email.com"
+}
+###
+DELETE  https://localhost:44390/api/cliente/3
+x-api-key: LeVSe8vkut8ZxRwyW7QwRC=2qPX3Fk5VB0fp0pP?5MVlfvzi35yOxceKyOI?NMne

@@ -1,0 +1,22 @@
+﻿-- Update database --
+1 - Ver conexion a servidor sql, en mi caso (localdb)\\localdb
+2 - Tools > Nuget Package manager > Package Manage console
+3 - Ejecutar Update-Database -Project Intuit.Challenge.DataAccess
+
+-- Run Front and Backend -- 
+Click derecho en Solucion (.sln) > Propiedades > Seleccionar Multiple Startup projects > Elegir
+* IntuitChallenge.WebAPI
+* Intuit.Challenge.Web
+
+-- Si van a probar los endpoints desde swagger o postman --
+Agregar header x-api-key con el valor LeVSe8vkut8ZxRwyW7QwRC=2qPX3Fk5VB0fp0pP?5MVlfvzi35yOxceKyOI?NMne
+
+Nota: Esta en el appsettings.json y desde la app frontend (Blazor WebAssembly) harcodeada como constante.
+
+ -- Ejemplos de requests -- 
+
+ En la carpeta IntuitChallenge.WebAPI > Examples > Requests 
+ Hay un archivo cliente.http que se puede probar desde el mismo visual studio
+
+
+

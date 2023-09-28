@@ -1,0 +1,47 @@
+﻿@page "/Clientes"
+@using Intuit.Challenge.Web.Models;
+@using Intuit.Challenge.Web.Shared.Components.Clientes
+@using Intuit.Challenge.Web.Utilities;
+@inject IHttpClientFactory _httpClientFactory
+@inject SweetAlertService swal;
+<h3>Clientes</h3>
+<div class="mb-6">
+    <a class="btn btn-outline-primary" href="clientes/crear" >Nuevo Cliente</a>
+    <a class="btn btn-outline-warning" href="clientes/buscar">Buscar Clientes</a>
+</div>
+
+
+<ListadoClientes Clientes="_Clientes" CargarClientes="CargarClientes" />
+@code {
+    private List<ClienteModel> _Clientes;
+    private HttpClient _httpClient;
+    protected override  async Task OnInitializedAsync()
+    {
+        _httpClient = _httpClientFactory.CreateClient(AppConstants.WEB_API_CLIENT);
+        await CargarClientes();
+    }
+
+
+    private async Task CargarClientes()
+    {
+        //_Clientes =  await _httpClient.GetFromJsonAsync<List<ClienteModel>>("cliente");
+
+
+        var response = await _httpClient.GetAsync($"cliente");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var mensaje = await response.Content.ReadAsStringAsync();
+            _Clientes = await response.Content.ReadFromJsonAsync<List<ClienteModel>>();
+
+
+        }
+        else
+        {
+            var responseError = await response.Content.ReadAsStringAsync();
+            await swal.FireAsync("Error", responseError, SweetAlertIcon.Error);
+        }
+
+    }
+
+}
