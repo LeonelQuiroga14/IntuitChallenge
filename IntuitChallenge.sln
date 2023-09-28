@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntuitChallenge", "IntuitChallenge\IntuitChallenge.csproj", "{CFBF7068-4DF4-4FB6-8B1B-24D0F77396BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntuitChallenge.WebAPI", "IntuitChallenge\IntuitChallenge.WebAPI.csproj", "{CFBF7068-4DF4-4FB6-8B1B-24D0F77396BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.Challenge.Core", "Intuit.Challenge.Core\Intuit.Challenge.Core.csproj", "{C0DC574C-2C24-4CEE-8543-5FB1C159D52C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.Challenge.DataAccess", "Intuit.Challenge.DataAccess\Intuit.Challenge.DataAccess.csproj", "{987CDA91-BC04-41A1-AFEE-1F14869CF808}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientApp", "ClientApp", "{23D05C66-AD7D-4577-A942-304EAE9F5CDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intuit.Challenge.Web", "Intuit.Challenge.Web\Intuit.Challenge.Web.csproj", "{564FC1E6-FF2F-4A27-80D5-5CE75860AA6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,24 @@ Global
 		{CFBF7068-4DF4-4FB6-8B1B-24D0F77396BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFBF7068-4DF4-4FB6-8B1B-24D0F77396BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFBF7068-4DF4-4FB6-8B1B-24D0F77396BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0DC574C-2C24-4CEE-8543-5FB1C159D52C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0DC574C-2C24-4CEE-8543-5FB1C159D52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0DC574C-2C24-4CEE-8543-5FB1C159D52C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0DC574C-2C24-4CEE-8543-5FB1C159D52C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{987CDA91-BC04-41A1-AFEE-1F14869CF808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{987CDA91-BC04-41A1-AFEE-1F14869CF808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{987CDA91-BC04-41A1-AFEE-1F14869CF808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{987CDA91-BC04-41A1-AFEE-1F14869CF808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{564FC1E6-FF2F-4A27-80D5-5CE75860AA6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{564FC1E6-FF2F-4A27-80D5-5CE75860AA6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{564FC1E6-FF2F-4A27-80D5-5CE75860AA6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{564FC1E6-FF2F-4A27-80D5-5CE75860AA6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{564FC1E6-FF2F-4A27-80D5-5CE75860AA6F} = {23D05C66-AD7D-4577-A942-304EAE9F5CDC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73827F93-2A7A-4875-BDE8-6CFD5FFFD4E9}

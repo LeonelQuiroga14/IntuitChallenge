@@ -1,0 +1,58 @@
+﻿@page "/clientes/editar/{id:int}"
+@using Intuit.Challenge.Web.Models;
+@using Intuit.Challenge.Web.Shared.Components.Clientes
+@using Intuit.Challenge.Web.Utilities;
+@inject IHttpClientFactory _httpClientFactory
+@inject SweetAlertService swal;
+@inject NavigationManager navigationManager;
+<h3>Editar Cliente</h3>
+@if (Cliente is null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+
+    <FormularioCliente @ref="formularioCliente" Cliente="Cliente" OnValidSubmit="Editar" />
+}
+
+@code {
+    [Parameter]
+
+    public int Id { get; set; }
+    private ClienteModel Cliente;
+    private FormularioCliente formularioCliente;
+    private HttpClient _httpClient;
+    protected override async Task OnInitializedAsync()
+    {
+        _httpClient = _httpClientFactory.CreateClient(AppConstants.WEB_API_CLIENT);
+        Cliente = await _httpClient.GetFromJsonAsync<ClienteModel>($"cliente/{Id}");
+
+
+    }
+    private async Task Editar()
+    {
+        Console.WriteLine(Cliente.Nombre);
+        var response = await _httpClient.PutAsJsonAsync($"cliente/{Id}", Cliente);
+
+        formularioCliente.FormularioPosteadoCorrectamente = response.IsSuccessStatusCode;
+
+
+        if (response.IsSuccessStatusCode)
+        {
+            var mensaje = await response.Content.ReadAsStringAsync();
+            await swal.FireAsync("Finalizado", mensaje, SweetAlertIcon.Success);
+
+
+        }
+        else
+        {
+            var responseError = await response.Content.ReadFromJsonAsync<ErrorResponseModel>();
+            await swal.FireAsync(responseError.Title, responseError.Error, SweetAlertIcon.Error);
+        }
+
+
+        if (formularioCliente.FormularioPosteadoCorrectamente)
+            navigationManager.NavigateTo("clientes");
+    }
+}

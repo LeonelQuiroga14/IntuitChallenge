@@ -1,0 +1,85 @@
+﻿@using Intuit.Challenge.Web.Models;
+@inject SweetAlertService swal;
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation">
+
+</NavigationLock>
+<EditForm EditContext="EditContext"  OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label class="form-label">Nombre:</label>
+        <InputText class="form-control" @bind-Value="@Cliente.Nombre" />
+        <ValidationMessage For="@(()=>  Cliente.Nombre)" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Apellido:</label>
+        <InputText class="form-control" @bind-Value="@Cliente.Apellido" />
+        <ValidationMessage For="@(()=>  Cliente.Apellido)" />
+    </div>
+
+
+    <div class="mb-3">
+        <label class="form-label">Fecha nacimiento:</label>
+        <InputDate class="form-control" @bind-Value="@Cliente.FechaNacimiento" />
+        <ValidationMessage For="@(()=>  Cliente.FechaNacimiento)" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">CUIT:</label>
+        <InputText class="form-control" @bind-Value="@Cliente.CUIT" />
+        <ValidationMessage For="@(()=>  Cliente.CUIT)" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Domicilio:</label>
+        <InputText class="form-control" @bind-Value="@Cliente.Domicilio" />
+        <ValidationMessage For="@(()=>  Cliente.Domicilio)" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Telefono celular:</label>
+        <InputText class="form-control" @bind-Value="@Cliente.TelefonoCelular" />
+        <ValidationMessage For="@(()=>  Cliente.TelefonoCelular)" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email:</label>
+        <InputText class="form-control" @bind-Value="@Cliente.Email" />
+        <ValidationMessage For="@(()=>  Cliente.Email)" />
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-outline-success" type="submit">Guardar</button>
+        <a class="btn btn-outline-primary" href="clientes">Volver</a>
+
+    </div>
+</EditForm>
+@code {
+    private EditContext EditContext = null!;
+
+    protected override void OnInitialized()
+    {
+        EditContext = new(Cliente);
+    }
+
+    [Parameter]
+    [EditorRequired]
+    public ClienteModel Cliente { get; set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public EventCallback OnValidSubmit { get; set; }
+
+
+    public bool FormularioPosteadoCorrectamente { get; set; } = false;
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        var formEditado = EditContext.IsModified();
+        if(!formEditado) return;
+        if (FormularioPosteadoCorrectamente) return;
+        var resultado = await swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Icon=SweetAlertIcon.Question,
+                ShowCancelButton= true,
+                Text = "¿Desea abandonar la pagina y perder los cambios?"
+            });
+        if (!string.IsNullOrEmpty(resultado.Value)) return;
+        context.PreventNavigation();
+    }
+
+}

@@ -1,0 +1,40 @@
+﻿@page "/clientes/crear"
+@using Intuit.Challenge.Web.Models;
+@using Intuit.Challenge.Web.Shared.Components.Clientes
+@using Intuit.Challenge.Web.Utilities;
+@inject SweetAlertService swal;
+@inject NavigationManager navigationManager;
+@inject IHttpClientFactory _httpClientFactory
+<h3>Crear Cliente</h3>
+<FormularioCliente @ref="formularioCliente" Cliente="Cliente" OnValidSubmit="Crear"/>
+@code {
+    private ClienteModel Cliente = new();
+    private FormularioCliente formularioCliente;
+    private async Task Crear()
+    {
+        Console.WriteLine(Cliente.Nombre);
+        var _httpClient = _httpClientFactory.CreateClient(AppConstants.WEB_API_CLIENT);
+        var response = await _httpClient.PostAsJsonAsync($"cliente",Cliente);
+        formularioCliente.FormularioPosteadoCorrectamente = response.IsSuccessStatusCode;
+
+        if (response.IsSuccessStatusCode)
+        {
+            var mensaje = await response.Content.ReadAsStringAsync();
+            await swal.FireAsync("Finalizado", mensaje, SweetAlertIcon.Success);
+
+
+        }
+        else
+        {
+            var responseError = await response.Content.ReadFromJsonAsync<ErrorResponseModel>();
+            await swal.FireAsync(responseError.Title, responseError.Error, SweetAlertIcon.Error);
+        }
+
+
+        if (formularioCliente.FormularioPosteadoCorrectamente)
+            navigationManager.NavigateTo("clientes");
+
+
+        
+    }
+}
