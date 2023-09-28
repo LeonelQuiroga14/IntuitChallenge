@@ -7,8 +7,8 @@
 ese ABM de clientes
 
 > Nota: Opte por el frontend para utilizar el ABM de clientes, ya que la api de https://www.metaweather.com/ esta dada de baja.
+![metaweather_off](https://github.com/LeonelQuiroga14/IntuitChallenge/assets/59056460/242b0d81-0189-4ebf-8196-ec2097b1f30e)
 
-![metaweather_off](https://github.com/LeonelQuiroga14/IntuitChallenge/assets/59056460/ec5798f9-b3fb-453b-9016-6507f8b71a57)
 
 
 # Proyecto de CRUD de Clientes
